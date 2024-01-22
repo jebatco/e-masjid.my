@@ -14,18 +14,21 @@ public class StatusAjkController {
     private StatusAjkService statusAjkService;
 
     @PostMapping("/new")
+    @ResponseBody
     public ResponseEntity<StatusAjk> createStatusAjk(@RequestBody StatusAjk statusAjk) {
         StatusAjk createdStatusAjk = statusAjkService.saveStatusAjk(statusAjk);
         return new ResponseEntity<>(createdStatusAjk, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
+    @ResponseBody
     public ResponseEntity<List<StatusAjk>> getAllStatusAjks() {
         List<StatusAjk> statusAjkList = statusAjkService.getAllStatusAjks();
         return new ResponseEntity<>(statusAjkList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
+    @ResponseBody
     public ResponseEntity<StatusAjk> getStatusAjkById(@PathVariable Long id) {
         StatusAjk statusAjk = statusAjkService.getStatusAjkById(id);
         if (statusAjk != null) {
@@ -36,6 +39,7 @@ public class StatusAjkController {
     }
 
     @PutMapping("/{id}")
+    @ResponseBody
     public ResponseEntity<StatusAjk> updateStatusAjk(@PathVariable Long id, @RequestBody StatusAjk updatedStatusAjk) {
         try {
             StatusAjk updatedAjk = statusAjkService.updateStatusAjk(id, updatedStatusAjk);

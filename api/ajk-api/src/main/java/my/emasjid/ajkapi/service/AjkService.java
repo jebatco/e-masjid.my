@@ -15,7 +15,12 @@ public class AjkService {
 
    
     public Ajk saveAjk(Ajk ajk) {
-        return ajkRepository.save(ajk);
+        if(ajk != null){
+            return ajkRepository.save(ajk);
+        } else {
+            return null;
+        }
+        
     }
 
     
@@ -25,12 +30,18 @@ public class AjkService {
 
   
     public Ajk getAjkById(Long id) {
-        Optional<Ajk> optionalAjk = ajkRepository.findById(id);
-        return optionalAjk.orElse(null);
+        if(id!=null){            
+            Optional<Ajk> optionalAjk = ajkRepository.findById(id);
+            return optionalAjk.orElse(null);
+        } else {
+            return null;
+        }
     }
 
     
     public Ajk updateAjk(Long id, Ajk updatedAjk) {
+        if(id==null)return null;
+        
         Optional<Ajk> optionalAjk = ajkRepository.findById(id);
         if (optionalAjk.isPresent()) {
             Ajk existingAjk = optionalAjk.get();
@@ -49,6 +60,6 @@ public class AjkService {
 
     
     public void deleteAjk(Long id) {
-        ajkRepository.deleteById(id);
+        if(id!=null)ajkRepository.deleteById(id);
     }
 }

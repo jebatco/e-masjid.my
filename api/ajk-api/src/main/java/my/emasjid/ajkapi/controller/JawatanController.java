@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/jawatan")
+@RequestMapping("${deploy.url}")
 public class JawatanController {
 
     @Autowired
     private JawatanService jawatanService;
 
     // Create a new Jawatan
-    @PostMapping("/new")
+    @PostMapping("/jawatan/new")
     @ResponseBody
     public ResponseEntity<Jawatan> createJawatan(@RequestBody Jawatan jawatan) {
         Jawatan createdJawatan = jawatanService.saveJawatan(jawatan);
@@ -25,7 +25,7 @@ public class JawatanController {
     }
 
     // Read all Jawatan
-    @GetMapping("/all")
+    @GetMapping("/jawatan/all")
     @ResponseBody
     public ResponseEntity<List<Jawatan>> getAllJawatan() {
         List<Jawatan> jawatanList = jawatanService.getAllJawatan();
@@ -33,7 +33,7 @@ public class JawatanController {
     }
 
     // Read one Jawatan by ID
-    @GetMapping("/{id}")
+    @GetMapping("/jawatan/{id}")
     @ResponseBody
     public ResponseEntity<Jawatan> getJawatanById(@PathVariable Long id) {
         Jawatan jawatan = jawatanService.getJawatanById(id);
@@ -45,7 +45,7 @@ public class JawatanController {
     }
 
     // Update an existing Jawatan
-    @PutMapping("/{id}")
+    @PutMapping("/jawatan/{id}")
     @ResponseBody
     public ResponseEntity<Jawatan> updateJawatan(@PathVariable Long id, @RequestBody Jawatan updatedJawatan) {
         Jawatan jawatan = jawatanService.getJawatanById(id);
@@ -59,7 +59,7 @@ public class JawatanController {
     }
 
     // Delete a Jawatan by ID
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/jawatan/{id}")
     @ResponseBody
     public ResponseEntity<Void> deleteJawatan(@PathVariable Long id) {
         jawatanService.deleteJawatanById(id);

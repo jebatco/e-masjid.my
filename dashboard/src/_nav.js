@@ -127,11 +127,11 @@ const _nav = [
     to: '/ajk',
     icon: <CIcon icon={cilGroup} customClassName="nav-icon" />,
     items: [
-      // {
-      //   component: CNavItem,
-      //   name: 'Senarai',
-      //   to: '/cadangan/daftar',
-      // },
+      {
+        component: CNavItem,
+        name: 'Senarai Jawatan',
+        to: '/ajk/jawatan',
+      },
       // {
       //   component: CNavItem,
       //   name: 'QR code',

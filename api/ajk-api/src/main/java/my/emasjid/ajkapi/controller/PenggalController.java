@@ -16,18 +16,21 @@ public class PenggalController {
     private PenggalService penggalService;
 
     @PostMapping("/new")
+    @ResponseBody
     public ResponseEntity<Penggal> createPenggal(@RequestBody Penggal penggal) {
         Penggal createdPenggal = penggalService.savePenggal(penggal);
         return new ResponseEntity<>(createdPenggal, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
+    @ResponseBody
     public ResponseEntity<List<Penggal>> getAllPenggals() {
         List<Penggal> penggalList = penggalService.getAllPenggals();
         return new ResponseEntity<>(penggalList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
+    @ResponseBody
     public ResponseEntity<Penggal> getPenggalById(@PathVariable Long id) {
         Penggal penggal = penggalService.getPenggalById(id);
         if (penggal != null) {
@@ -38,6 +41,7 @@ public class PenggalController {
     }
 
     @PutMapping("/{id}")
+    @ResponseBody
     public ResponseEntity<Penggal> updatePenggal(@PathVariable Long id, @RequestBody Penggal updatedPenggal) {
         try {
             Penggal updatedPenggalResult = penggalService.updatePenggal(id, updatedPenggal);
@@ -48,6 +52,7 @@ public class PenggalController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseBody
     public ResponseEntity<Void> deletePenggal(@PathVariable Long id) {
         penggalService.deletePenggal(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

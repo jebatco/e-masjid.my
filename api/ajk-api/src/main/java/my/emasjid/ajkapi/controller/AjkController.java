@@ -16,18 +16,21 @@ public class AjkController {
     private  AjkService ajkService;
 
     @PostMapping("/new")
+    @ResponseBody
     public ResponseEntity<Ajk> createAjk(@RequestBody Ajk ajk) {
         Ajk createdAjk = ajkService.saveAjk(ajk);
         return new ResponseEntity<>(createdAjk, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
+    @ResponseBody
     public ResponseEntity<List<Ajk>> getAllAjks() {
         List<Ajk> ajkList = ajkService.getAllAjks();
         return new ResponseEntity<>(ajkList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
+    @ResponseBody
     public ResponseEntity<Ajk> getAjkById(@PathVariable Long id) {
         Ajk ajk = ajkService.getAjkById(id);
         if (ajk != null) {
@@ -38,6 +41,7 @@ public class AjkController {
     }
 
     @PutMapping("/{id}")
+    @ResponseBody
     public ResponseEntity<Ajk> updateAjk(@PathVariable Long id, @RequestBody Ajk updatedAjk) {
         try {
             Ajk updatedAjkResult = ajkService.updateAjk(id, updatedAjk);
@@ -48,6 +52,7 @@ public class AjkController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseBody
     public ResponseEntity<Void> deleteAjk(@PathVariable Long id) {
         ajkService.deleteAjk(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
