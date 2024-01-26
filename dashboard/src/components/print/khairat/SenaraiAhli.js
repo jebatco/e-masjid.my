@@ -1,6 +1,7 @@
 import React, { useState, forwardRef, useEffect } from 'react'
 import { CCol, CRow, CContainer, CTable } from '@coreui/react'
 import constants  from '../../../constants/print.json';
+import { getTetapanNamaMasjid } from 'src/service/tetapan/TetapanMasjidApi'
 
 const columns = [
   {
@@ -20,7 +21,7 @@ const columns = [
   },
   {
     key: 'status',
-    label: 'STATUS BAYARAN',
+    label: 'STATUS BAYARAN (# NO RESIT)',
     _props: { scope: 'col', className: 'col-3' },
   },
 ]
@@ -29,22 +30,19 @@ const SenaraiAhli = forwardRef((props, ref) => {
   const [items, setItems] = useState([])
   const [total, setTotal] = useState(0)
   const [tagType, setTagType] = useState('')
+  const [namaMasjid, setNamaMasjid] = useState("")
 
   useEffect(() => {
     async function loadSenarai() {
       let items = []
       let jumlahAhli = 0
+      console.log(props.items)
       for (let i = 0; i < props.items.length; i++) {
-        const paymentStatus = props.items[i].paymentHistory.some(item => {
-          const paymentDateYear = new Date(item.paymentDate).getFullYear();
-          const currentYear = new Date().getFullYear();
-          return paymentDateYear === currentYear;
-        }) ? 'Sudah' : 'Belum';
         items.push({
           nama: props.items[i].nama,
           penanda: props.items[i].tagging,
           phone: props.items[i].hp,
-          status: paymentStatus,
+          status: props.items[i].paymentStatus,
         })
         jumlahAhli += 1
       }
@@ -57,6 +55,19 @@ const SenaraiAhli = forwardRef((props, ref) => {
     }
     loadSenarai()
   }, [props.items])
+
+  useEffect(() => {
+    async function loadNamaMasjid() {
+      try {
+        const response = await getTetapanNamaMasjid();
+        setNamaMasjid(response.nilai);
+      } catch (error) {
+        console.error("Error fetching nama masjid:", error);
+      }
+    }
+    loadNamaMasjid();
+  }, []);
+
 
   return (
     <CContainer
@@ -71,7 +82,7 @@ const SenaraiAhli = forwardRef((props, ref) => {
       </CRow>
       <CRow>
         <CCol style={{ textAlign: 'center' }} className='mb-3'>
-          <b>MASJID JAMEK SUNGAI RAMBAI</b>
+          <h3>{namaMasjid}</h3>
         </CCol>
       </CRow>
       <CRow>

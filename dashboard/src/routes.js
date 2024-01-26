@@ -15,9 +15,6 @@ const TetapanTabung = React.lazy(() => import('./views/tabung/tetapan/Tetapan'))
 // Tabung
 const SenaraiCadangan = React.lazy(() => import('./views/cadangan/senarai/Senarai'))
 
-//Ajk 
-const Jawatan = React.lazy(() => import('./views/ajk/jawatan/Jawatan'))
-
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -35,8 +32,6 @@ const routes = [
   { path: '/cadangan/senarai', name: 'Senarai', element: SenaraiCadangan },
   // { path: '/cadangan/daftar/:paramId?', name: 'Daftar', element: DaftarTabung },
   // { path: '/cadangan/tetapan', name: 'Tetapan', element: TetapanTabung },
-  { path: '/ajk', name: 'ajk', element: Jawatan, exact: true },
-  { path: '/ajk/jawatan', name: 'Jawatan', element: Jawatan },
 
   { path: '/tetapan', name: 'Tetapan Masjid', element: TetapanMasjid },
 ]

@@ -9,6 +9,7 @@ const prod = {
     TETAPAN_API_BASE_URL: 'https://www.e-masjid.my/api',
     AJK_API_BASE_URL: 'https://www.e-masjid.my/api',
     LOGOUT_URL: 'https://www.e-masjid.my/web',
+    PETI_CADANGAN_URL: 'https://www.e-masjid.my/web#/cadangan',
   },
 }
 
@@ -23,6 +24,7 @@ const dev = {
     TETAPAN_API_BASE_URL: 'http://localhost:8085',
     AJK_API_BASE_URL: 'http://localhost:8086',
     LOGOUT_URL: 'http://localhost:3001',
+    PETI_CADANGAN_URL: 'https://localhost:3001/web#/cadangan',
   },
 }
 
