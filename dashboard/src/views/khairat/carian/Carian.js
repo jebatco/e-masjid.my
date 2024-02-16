@@ -395,8 +395,8 @@ const Carian = () => {
               columns={columns}
               data={items}
               pagination
-              paginationPerPage={5}
-              paginationRowsPerPageOptions={[5, 10, 20, 30]}
+              paginationPerPage={25}
+              paginationRowsPerPageOptions={[25 , 50 , 100, 200]}
               pointerOnHover
               highlightOnHover
               conditionalRowStyles={conditionalRowStyles}

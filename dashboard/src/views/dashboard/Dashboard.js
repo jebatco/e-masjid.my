@@ -18,12 +18,14 @@ import {
 
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 import { getMemberCount } from 'src/service/khairat/MembersApi'
+import { getPaidMemberCountCurrentYear } from 'src/service/khairat/MembersApi'
 import { getKutipanByTabung } from 'src/service/tabung/KutipanApi';
 import { getCadanganCount } from 'src/service/cadangan/CadanganApi'
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(false)
   const [memberCount, setMemberCount] = useState(0)
+  const [paidMemberCount, setPaidMemberCount] = useState(0)
   const [kutipanList, setKutipanList] = useState([])
   const [kutipanChartValue, setKutipanChartValue] = useState([])
   const [kutipanChartValueTop5, setKutipanChartValueTop5] = useState([])
@@ -61,47 +63,37 @@ const Dashboard = () => {
   
 
   useEffect(() => {
-    async function fetchMemberCount() {
+    const fetchDashboardData = async () => {
+      setLoading(true)
       try {
-        const count = await getMemberCount();
-        setMemberCount(count);
-      } catch (error) {
-        console.error('Error fetching member count:', error);
-      }
-    }
-  
-    const fetchKutipan = async () => {
-      if (true) {
-        setLoading(true)
-        try {
-          const data = await getKutipanByTabung(1)
-          if (data.length > 0) {
-            const kutipanData = data.map((item) => ({
-              id: item.id,
-              tabung: item.tabung.name,
-              createDate: item.createDate,
-              total: item.total,
-            }))
-            setKutipanList(kutipanData)
-          } else {
-            setKutipanList([]);
-          }
-        } catch (error) {
-          console.error('Error fetching kutipan:', error)
-        } finally {
-          setLoading(false)
+        const data = await getKutipanByTabung(1)
+        if (data.length > 0) {
+          const kutipanData = data.map((item) => ({
+            id: item.id,
+            tabung: item.tabung.name,
+            createDate: item.createDate,
+            total: item.total,
+          }))
+          setKutipanList(kutipanData)
+        } else {
+          setKutipanList([])
         }
+
+        const response = await getCadanganCount()
+        setCadanganCount(response[0])
+        const count = await getPaidMemberCountCurrentYear();
+        setPaidMemberCount(count)
+        const countMember = await getMemberCount();
+        setMemberCount(countMember)
+
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error)
+      } finally {
+        setLoading(false)
       }
-    };
-    
-    const fetchCadanganCount = async () => {
-      const response = await getCadanganCount()
-      setCadanganCount(response[0])
     }
 
-    fetchKutipan()
-    fetchMemberCount();
-    fetchCadanganCount();
+    fetchDashboardData();
   }, []);
 
   if (loading) {
@@ -123,6 +115,7 @@ const Dashboard = () => {
     <>
       <WidgetsDropdown
         memberCount={memberCount}
+        paidMemberCount={paidMemberCount}
         kutipanList={kutipanList}
         kutipanChartValueTop5={kutipanChartValueTop5} 
         cadanganCount={cadanganCount} />
