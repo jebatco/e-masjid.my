@@ -31,17 +31,20 @@ public class TagsController {
             @RequestParam(name = "size", defaultValue = "10") int size,
             @RequestParam(name = "sort", defaultValue = "name") String sort,
             @RequestParam(name = "direction", defaultValue = "ASC") String direction) {
+        @SuppressWarnings("null")
         Pageable pageable = PageRequest.of(page, size,
                 Sort.Direction.fromString(direction), sort);
         return tagRepository.findAll(pageable);
     }
 
+    @SuppressWarnings("null")
     @PostMapping("/tags/save")
     @ResponseBody
     public Tag save(@RequestBody Tag tag) {
         return tagRepository.save(tag);
     }
 
+    @SuppressWarnings("null")
     @DeleteMapping("/tags/delete/{id}")
     @ResponseBody
     public void delete(@PathVariable Long id) {

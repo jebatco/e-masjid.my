@@ -30,10 +30,12 @@ public class CadanganService {
         return cadanganRepository.getTotalCadanganByType();
     }
 
+    @SuppressWarnings("null")
     public Cadangan getCadanganById(Long id) {
         return cadanganRepository.findById(id).get();
     }
 
+    @SuppressWarnings("null")
     public Cadangan save(Cadangan cadangan) {
         return cadanganRepository.save(cadangan);
     }

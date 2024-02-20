@@ -20,6 +20,7 @@ public class DependentService {
     @Autowired
     private MemberRepository memberRepository;
 
+    @SuppressWarnings("null")
     public Dependent save(Dependent dependent, Long memberId) {
         Person newPerson = dependent.getPerson();
         newPerson = personRepository.save(newPerson);
@@ -29,8 +30,11 @@ public class DependentService {
         return dependentRepository.save(dependent);
     }
 
+    @SuppressWarnings("null")
     public void deleteById(Long id) {
+        @SuppressWarnings("null")
         Dependent dependent = dependentRepository.findById(id).orElse(null);
+        @SuppressWarnings("null")
         Person person = personRepository.findById(dependent.getPerson().getId()).orElse(null);
         dependentRepository.delete(dependent);
         personRepository.delete(person);

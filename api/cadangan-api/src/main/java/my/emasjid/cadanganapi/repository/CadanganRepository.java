@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import my.emasjid.library.cadangan.entity.Cadangan;
 
 public interface CadanganRepository extends JpaRepository<Cadangan, Long> {
+    @SuppressWarnings("null")
     public Page<Cadangan> findAll(Pageable pageable);
 
     public Page<Cadangan> findByCadanganTypeIdAndIsOpen(Long cadanganTypeId, Boolean isOpen, Pageable pageable);

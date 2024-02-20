@@ -12,6 +12,7 @@ public class CadanganService {
     @Autowired
     private CadanganRepository cadanganRepository;
 
+    @SuppressWarnings("null")
     public Cadangan save(Cadangan cadangan) {
         return cadanganRepository.save(cadangan);
     }
